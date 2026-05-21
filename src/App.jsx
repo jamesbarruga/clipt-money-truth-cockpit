@@ -416,44 +416,46 @@ function Sidebar({ activeTab, setActiveTab, collapsed, setCollapsed }) {
 
 function DetailPanel({ transaction }) {
   return (
-    <Card className="p-5">
-      <div className="mb-4 flex items-start justify-between gap-3">
+    <Card className="p-4">
+      <div className="mb-3 flex items-start justify-between gap-3">
         <div>
-          <div className="text-xs font-medium uppercase tracking-wide text-slate-500">Selected Clipt financial event</div>
-          <h3 className="mt-1 text-xl font-bold">{transaction.id}</h3>
-          <p className="text-sm text-slate-500">{transaction.customer} · {transaction.provider} · {transaction.category}</p>
+          <div className="text-[11px] font-medium uppercase tracking-wide text-slate-400">Selected event</div>
+          <h3 className="mt-0.5 text-base font-bold">{transaction.id}</h3>
+          <p className="text-xs text-slate-500">{transaction.customer} · {transaction.provider}</p>
+          <p className="text-xs text-slate-400">{transaction.category}</p>
         </div>
         <Pill tone={toneForStatus(transaction.status)}>{transaction.status}</Pill>
       </div>
 
-      <div className="grid gap-3 md:grid-cols-3">
-        <div className="rounded-2xl bg-slate-50 p-4">
-          <div className="text-xs text-slate-500">Gross</div>
-          <div className="mt-1 text-lg font-bold">{money.format(transaction.gross)}</div>
+      <div className="grid grid-cols-3 gap-2">
+        <div className="rounded-xl bg-slate-50 p-2.5">
+          <div className="text-[11px] text-slate-500">Gross</div>
+          <div className="mt-0.5 text-sm font-bold">{money.format(transaction.gross)}</div>
         </div>
-        <div className="rounded-2xl bg-slate-50 p-4">
-          <div className="text-xs text-slate-500">Stripe Fee</div>
-          <div className="mt-1 text-lg font-bold">{money.format(transaction.fee)}</div>
+        <div className="rounded-xl bg-slate-50 p-2.5">
+          <div className="text-[11px] text-slate-500">Stripe Fee</div>
+          <div className="mt-0.5 text-sm font-bold">{money.format(transaction.fee)}</div>
         </div>
-        <div className="rounded-2xl bg-slate-50 p-4">
-          <div className="text-xs text-slate-500">Net</div>
-          <div className="mt-1 text-lg font-bold">{money.format(transaction.net)}</div>
+        <div className="rounded-xl bg-slate-50 p-2.5">
+          <div className="text-[11px] text-slate-500">Net</div>
+          <div className="mt-0.5 text-sm font-bold">{money.format(transaction.net)}</div>
         </div>
       </div>
 
-      <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
-        <div className="mb-1 text-sm font-semibold">What the click reveals</div>
-        <p className="text-sm text-slate-600">{transaction.issue}</p>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <div className="rounded-xl border border-slate-200 bg-white p-3">
+          <div className="mb-1 text-xs font-semibold">What the click reveals</div>
+          <p className="text-xs text-slate-600">{transaction.issue}</p>
+        </div>
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+          <div className="mb-1 text-xs font-semibold">Next action</div>
+          <p className="text-xs text-slate-600">{transaction.next}</p>
+        </div>
       </div>
 
-      <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-        <div className="mb-1 text-sm font-semibold">Next action</div>
-        <p className="text-sm text-slate-600">{transaction.next}</p>
-      </div>
-
-      <div className="mt-4">
-        <div className="mb-2 text-xs font-medium uppercase tracking-wide text-slate-500">Metadata found / missing</div>
-        <div className="flex flex-wrap gap-2">
+      <div className="mt-3">
+        <div className="mb-1.5 text-[11px] font-medium uppercase tracking-wide text-slate-400">Metadata found / missing</div>
+        <div className="flex flex-wrap gap-1.5">
           {transaction.metadata.map((item) => <Pill key={item} tone="slate">{item}</Pill>)}
         </div>
       </div>
@@ -624,7 +626,7 @@ function Overview({ selectedFlow, setSelectedFlow, setActiveTab }) {
 function Reconcile({ selectedId, setSelectedId }) {
   const selected = transactions.find((t) => t.id === selectedId) || transactions[0];
   return (
-    <div className="grid gap-6 xl:grid-cols-[1.5fr_0.8fr]">
+    <div className="grid gap-4 2xl:grid-cols-[1.6fr_1fr]">
       <TransactionTable selectedId={selectedId} setSelectedId={setSelectedId} />
       <DetailPanel transaction={selected} />
     </div>
