@@ -474,20 +474,20 @@ function TransactionTable({ selectedId, setSelectedId }) {
           <button className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-800"><Download size={16} /> Export gap report</button>
         </div>
       </div>
-      <div className="overflow-x-auto rounded-2xl border border-slate-200">
-        <table className="w-full min-w-[1120px] text-left text-sm">
+      <div className="rounded-2xl border border-slate-200">
+        <table className="w-full text-left text-sm">
           <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
             <tr>
               <th className="p-3">Event</th>
-              <th className="p-3">Stripe</th>
-              <th className="p-3">Payout</th>
-              <th className="p-3">Client / Source</th>
-              <th className="p-3">Provider</th>
+              <th className="hidden p-3 lg:table-cell">Stripe</th>
+              <th className="hidden p-3 xl:table-cell">Payout</th>
+              <th className="hidden p-3 md:table-cell">Client / Source</th>
+              <th className="hidden p-3 lg:table-cell">Provider</th>
               <th className="p-3">Category</th>
-              <th className="p-3">Gross</th>
+              <th className="hidden p-3 md:table-cell">Gross</th>
               <th className="p-3">Net</th>
-              <th className="p-3">Bank</th>
-              <th className="p-3">Admin</th>
+              <th className="hidden p-3 md:table-cell">Bank</th>
+              <th className="hidden p-3 lg:table-cell">Admin</th>
               <th className="p-3">Status</th>
               <th className="p-3"></th>
             </tr>
@@ -496,15 +496,15 @@ function TransactionTable({ selectedId, setSelectedId }) {
             {transactions.map((row) => (
               <tr key={row.id} onClick={() => setSelectedId(row.id)} className={`cursor-pointer transition hover:bg-slate-50 ${selectedId === row.id ? "bg-slate-50" : ""}`}>
                 <td className="p-3 font-mono text-xs font-semibold">{row.id}</td>
-                <td className="p-3 font-mono text-xs text-slate-500">{row.stripe}</td>
-                <td className="p-3 font-mono text-xs text-slate-500">{row.payout}</td>
-                <td className="p-3">{row.customer}</td>
-                <td className="p-3">{row.provider}</td>
+                <td className="hidden p-3 font-mono text-xs text-slate-500 lg:table-cell">{row.stripe}</td>
+                <td className="hidden p-3 font-mono text-xs text-slate-500 xl:table-cell">{row.payout}</td>
+                <td className="hidden p-3 md:table-cell">{row.customer}</td>
+                <td className="hidden p-3 lg:table-cell">{row.provider}</td>
                 <td className="p-3">{row.category}</td>
-                <td className="p-3">{money.format(row.gross)}</td>
+                <td className="hidden p-3 md:table-cell">{money.format(row.gross)}</td>
                 <td className="p-3">{money.format(row.net)}</td>
-                <td className="p-3">{row.bank}</td>
-                <td className="p-3">{row.admin}</td>
+                <td className="hidden p-3 md:table-cell">{row.bank}</td>
+                <td className="hidden p-3 lg:table-cell">{row.admin}</td>
                 <td className="p-3"><Pill tone={toneForStatus(row.status)}>{row.status}</Pill></td>
                 <td className="p-3 text-slate-400"><ChevronRight size={16} /></td>
               </tr>
@@ -700,13 +700,13 @@ function DevFixes() {
           </div>
           <Settings2 size={22} className="text-slate-500" />
         </div>
-        <div className="overflow-x-auto rounded-2xl border border-slate-200">
-          <table className="w-full min-w-[840px] text-left text-sm">
+        <div className="rounded-2xl border border-slate-200">
+          <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
               <tr>
                 <th className="p-3">Field</th>
-                <th className="p-3">Type</th>
-                <th className="p-3">Why needed</th>
+                <th className="hidden p-3 md:table-cell">Type</th>
+                <th className="hidden p-3 lg:table-cell">Why needed</th>
                 <th className="p-3">Priority</th>
                 <th className="p-3">Status</th>
               </tr>
@@ -715,8 +715,8 @@ function DevFixes() {
               {devFixes.map((fix) => (
                 <tr key={fix.field} className="hover:bg-slate-50">
                   <td className="p-3 font-mono text-xs font-semibold text-slate-800">{fix.field}</td>
-                  <td className="p-3 text-slate-500">{fix.type}</td>
-                  <td className="p-3 text-slate-600">{fix.why}</td>
+                  <td className="hidden p-3 text-slate-500 md:table-cell">{fix.type}</td>
+                  <td className="hidden p-3 text-slate-600 lg:table-cell">{fix.why}</td>
                   <td className="p-3"><Pill tone={toneForStatus(fix.priority)}>{fix.priority}</Pill></td>
                   <td className="p-3"><Pill tone={toneForStatus(fix.status)}>{fix.status}</Pill></td>
                 </tr>
@@ -825,12 +825,12 @@ function DataModel() {
           </div>
           <Database size={22} className="text-slate-500" />
         </div>
-        <div className="overflow-x-auto rounded-2xl border border-slate-200">
-          <table className="w-full min-w-[860px] text-left text-sm">
+        <div className="rounded-2xl border border-slate-200">
+          <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
               <tr>
                 <th className="p-3">Field</th>
-                <th className="p-3">Example</th>
+                <th className="hidden p-3 md:table-cell">Example</th>
                 <th className="p-3">Meaning</th>
               </tr>
             </thead>
@@ -838,7 +838,7 @@ function DataModel() {
               {normalizedFields.map((row) => (
                 <tr key={row.field} className="hover:bg-slate-50">
                   <td className="p-3 font-mono text-xs font-semibold text-slate-800">{row.field}</td>
-                  <td className="p-3 font-mono text-xs text-slate-500">{row.example}</td>
+                  <td className="hidden p-3 font-mono text-xs text-slate-500 md:table-cell">{row.example}</td>
                   <td className="p-3 text-slate-600">{row.meaning}</td>
                 </tr>
               ))}
@@ -877,12 +877,12 @@ function DataRequests() {
           </div>
           <UploadCloud size={22} className="text-slate-500" />
         </div>
-        <div className="overflow-x-auto rounded-2xl border border-slate-200">
-          <table className="w-full min-w-[920px] text-left text-sm">
+        <div className="rounded-2xl border border-slate-200">
+          <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
               <tr>
                 <th className="p-3">Source</th>
-                <th className="p-3">Needed fields</th>
+                <th className="hidden p-3 lg:table-cell">Needed fields</th>
                 <th className="p-3">Why</th>
                 <th className="p-3">Sensitivity</th>
               </tr>
@@ -891,7 +891,7 @@ function DataRequests() {
               {dataRequests.map((row) => (
                 <tr key={row.source} className="hover:bg-slate-50">
                   <td className="p-3 font-semibold text-slate-800">{row.source}</td>
-                  <td className="p-3 text-slate-600">{row.needed}</td>
+                  <td className="hidden p-3 text-slate-600 lg:table-cell">{row.needed}</td>
                   <td className="p-3 text-slate-600">{row.why}</td>
                   <td className="p-3"><Pill tone="amber">{row.sensitivity}</Pill></td>
                 </tr>
