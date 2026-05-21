@@ -322,13 +322,13 @@ function toneForStatus(status) {
 function FlowBox({ icon: Icon, title, subtitle, tone = "green", active, onClick }) {
   const toneClass = tone === "green" ? "bg-emerald-50 text-emerald-700" : tone === "blue" ? "bg-sky-50 text-sky-700" : "bg-amber-50 text-amber-700";
   return (
-    <button onClick={onClick} className={`flex min-w-[180px] flex-1 items-center gap-3 rounded-2xl border p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${active ? "border-slate-900 bg-slate-50" : "border-slate-200 bg-white"}`}>
-      <div className={`rounded-xl p-2 ${toneClass}`}>
-        <Icon size={20} />
+    <button onClick={onClick} className={`flex min-w-0 flex-1 items-center gap-2 rounded-xl border p-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${active ? "border-slate-900 bg-slate-50" : "border-slate-200 bg-white"}`}>
+      <div className={`shrink-0 rounded-lg p-1.5 ${toneClass}`}>
+        <Icon size={16} />
       </div>
-      <div>
-        <div className="text-sm font-semibold text-slate-900">{title}</div>
-        <div className="text-xs text-slate-500">{subtitle}</div>
+      <div className="min-w-0">
+        <div className="truncate text-xs font-semibold text-slate-900">{title}</div>
+        <div className="truncate text-[11px] text-slate-500">{subtitle}</div>
       </div>
     </button>
   );
@@ -1065,7 +1065,7 @@ function PLReport() {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("overview");
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [selectedId, setSelectedId] = useState("kit_8842");
   const [selectedExceptionId, setSelectedExceptionId] = useState("ex_provider_payout_tax");
   const [selectedFlow, setSelectedFlow] = useState("provider");
@@ -1105,7 +1105,7 @@ export default function App() {
         </div>
       )}
 
-      <div className="mx-auto flex max-w-[1600px] gap-6 p-6">
+      <div className="mx-auto flex max-w-[1600px] gap-4 p-4">
         <div className="hidden md:block">
           <Sidebar
             activeTab={activeTab}
@@ -1115,38 +1115,36 @@ export default function App() {
           />
         </div>
 
-        <main className="min-w-0 flex-1 space-y-6">
+        <main className="min-w-0 flex-1 space-y-4">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35 }}
             className="overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white shadow-xl"
           >
-            <div className="flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-3 p-5 md:flex-row md:items-center md:justify-between">
               <div>
-                <div className="mb-2 flex items-center gap-2 text-sm text-slate-300">
-                  <ShieldCheck size={16} /> Clipt Care finance ops · clickable self-contained prototype
+                <div className="mb-1.5 flex items-center gap-2 text-xs text-slate-400">
+                  <ShieldCheck size={13} /> Clipt Care · finance ops demo
+                  <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-slate-500">Sample data only — not connected to Clipt systems</span>
                 </div>
-                <div className="mb-3 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-400">
-                  Prototype uses sample data only. Not connected to Clipt systems.
-                </div>
-                <h1 className="text-3xl font-bold tracking-tight">Clipt Care Money Truth Cockpit</h1>
-                <p className="mt-2 max-w-2xl text-sm text-slate-300">
-                  Reconcile client visits, provider payouts, kits, subscriptions, cash payments, Stripe, US Bank, and admin-site data into one trusted weekly close workflow.
+                <h1 className="text-2xl font-bold tracking-tight">Clipt Care Money Truth Cockpit</h1>
+                <p className="mt-1 max-w-xl text-xs text-slate-400">
+                  Reconcile visits, payouts, kits, subscriptions, cash, Stripe, and US Bank into one weekly close workflow.
                 </p>
               </div>
-              <div className="grid gap-2 sm:grid-cols-3">
-                <button onClick={() => setActiveTab("overview")} className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-left transition hover:bg-white/15">
-                  <div className="text-lg font-bold text-emerald-300">91%</div>
-                  <div className="text-xs text-slate-300">Matched this week</div>
+              <div className="flex gap-2 md:flex-col md:items-end lg:flex-row">
+                <button onClick={() => setActiveTab("overview")} className="rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-left transition hover:bg-white/15">
+                  <div className="text-base font-bold text-emerald-300">91%</div>
+                  <div className="text-xs text-slate-400">Matched</div>
                 </button>
-                <button onClick={() => setActiveTab("exceptions")} className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-left transition hover:bg-white/15">
-                  <div className="text-lg font-bold text-amber-300">14</div>
-                  <div className="text-xs text-slate-300">Care-finance gaps</div>
+                <button onClick={() => setActiveTab("exceptions")} className="rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-left transition hover:bg-white/15">
+                  <div className="text-base font-bold text-amber-300">14</div>
+                  <div className="text-xs text-slate-400">Gaps</div>
                 </button>
-                <button onClick={() => setActiveTab("close")} className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-left transition hover:bg-white/15">
-                  <div className="text-lg font-bold text-sky-300">May 2026</div>
-                  <div className="text-xs text-slate-300">Monthly close</div>
+                <button onClick={() => setActiveTab("close")} className="rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-left transition hover:bg-white/15">
+                  <div className="text-base font-bold text-sky-300">May 2026</div>
+                  <div className="text-xs text-slate-400">Close</div>
                 </button>
               </div>
             </div>
@@ -1155,10 +1153,10 @@ export default function App() {
           <div className="flex items-center justify-between gap-3">
             <div>
               <div className="text-xs font-medium uppercase tracking-wide text-slate-500">Current view</div>
-              <h2 className="text-2xl font-bold">{activeTitle}</h2>
+              <h2 className="text-xl font-bold">{activeTitle}</h2>
             </div>
-            <div className="hidden items-center gap-2 rounded-2xl bg-white px-3 py-2 text-sm text-slate-500 shadow-sm md:flex">
-              <Search size={16} /> Use the left sidebar, cards, rows, and gap items to drill down.
+            <div className="hidden items-center gap-2 rounded-xl bg-white px-3 py-2 text-xs text-slate-500 shadow-sm md:flex">
+              <Search size={14} /> Use the sidebar, cards, and rows to drill down.
             </div>
           </div>
 
